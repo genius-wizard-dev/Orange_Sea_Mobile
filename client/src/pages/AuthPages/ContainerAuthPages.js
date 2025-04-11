@@ -12,17 +12,17 @@ const ContainerAuthPages = ({ navigation }) => {
             <Image source={logo_img} style={styles.logo_image}/>
             <View>
                 <TouchableOpacity
-                    onPress={() => navigation.navigate("Đăng nhập")}
+                    onPress={() => navigation.navigate("Login")}
                     style={[styles.buttonNavigate, styles.btnLogin]}
                 >
-                    <Text style={[styles.textBtnNavi, styles.textLogin]}>ĐĂNG NHẬP</Text>
+                    <Text style={[styles.textBtnNavi, styles.textLogin]}>LOGIN</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity
-                    onPress={() => navigation.navigate("Đăng ký")}
+                    onPress={() => navigation.navigate("Register")}
                     style={styles.buttonNavigate}
                 >
-                    <Text style={styles.textBtnNavi}>ĐĂNG KÝ</Text>
+                    <Text style={styles.textBtnNavi}>REGISTER</Text>
 
                 </TouchableOpacity>
 

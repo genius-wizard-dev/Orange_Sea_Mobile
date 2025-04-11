@@ -94,14 +94,14 @@ export default function App() {
             options={{ headerShown: false }}
           />
 
-          <Stack.Screen name="Đăng nhập"
+          <Stack.Screen name="Login"
             component={LoginPage}
           />
-          <Stack.Screen name="Đăng ký"
+          <Stack.Screen name="Register"
             component={RegisterPage}
           />
 
-          <Stack.Screen name="Xác thực OTP"
+          <Stack.Screen name="Verify OTP"
             component={GetOTPPage}
           />
 
@@ -112,7 +112,7 @@ export default function App() {
           />
 
 
-          <Stack.Screen name="Cài đặt"
+          <Stack.Screen name="Setting"
             component={SettingPageIndex}
           />
 

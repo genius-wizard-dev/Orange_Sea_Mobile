@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { jwtDecode } from "jwt-decode";
-import { registerUser } from "../thunks/authThunk";
+import { registerUser, verifyOTP } from "../thunks/authThunk";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -48,14 +48,38 @@ const authSlice = createSlice({
                 state.user = action.payload.user;
                 state.token = action.payload.token;
 
-                AsyncStorage.setItem("token", action.payload.token); // Lưu token nếu muốn
+                AsyncStorage.setItem("token", action.payload.token); 
             })
             .addCase(registerUser.rejected, (state, action) => {
                 state.status = "failed";
                 state.error = action.payload || { message: "Đăng ký thất bại" };
 
                 console.warn("❌ registerUser bị từ chối:", action.payload);
+            })
+
+
+
+
+
+            .addCase(verifyOTP.pending, (state) => {
+                state.status = "loading";
+                state.error = null;
+            })
+            .addCase(verifyOTP.fulfilled, (state, action) => {
+                state.status = "succeeded";
+                state.user = action.payload.user;
+
+            })
+            .addCase(verifyOTP.rejected, (state, action) => {
+                state.status = "failed";
+                state.error = action.payload || { message: "xac thuc thất bại" };
+
             });
+
+
+
+
+
     }
 });
 

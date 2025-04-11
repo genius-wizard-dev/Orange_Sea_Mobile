@@ -127,7 +127,7 @@ const RegisterPage = ({ navigation }) => {
                                 onPress={() => setChecked(!checked)}
                             />
 
-                            <Text style={styles.text_dk} onPress={() => setChecked(!checked)}>By signing up, you agree to our</Text>
+                            <Text style={styles.text_dk} onPress={() => setChecked(!checked)}>By signing up, you agree to our Terms</Text>
                         </View>
                     </View>
                 </View>

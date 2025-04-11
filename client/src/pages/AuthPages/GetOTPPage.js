@@ -4,6 +4,9 @@ import { useDispatch } from 'react-redux';
 import OceanBackground from '../../components/OceanBackground';
 import { TextInput } from 'react-native-paper';
 import { stylesMixin } from '../../styleMixins/@minxin';
+import { verifyOTP } from '../../redux/thunks/authThunk';
+
+import Spinner from 'react-native-loading-spinner-overlay';
 
 const GetOTPPage = ({ navigation, route }) => {
 
@@ -12,6 +15,7 @@ const GetOTPPage = ({ navigation, route }) => {
     const dispatch = useDispatch();
 
     const [otp, setOTP] = useState('');
+     const [loading, setLoading] = useState(false);
 
     // const { user } = useSelector(state => state.user);
 
@@ -25,22 +29,26 @@ const GetOTPPage = ({ navigation, route }) => {
 
 
         const data = {
+            email: email,
             otp
         };
 
-        // try {
-        //     const res = await dispatch(registerUser(data)).unwrap();
-        //     console.log(res)
-        //     Alert.alert(res?.message || "Có lỗi xảy ra.");
+        try {
+            setLoading(true)
+            const res = await dispatch(verifyOTP(data)).unwrap();
+            console.log(res)
+            Alert.alert(res?.message || "Có lỗi xảy ra.");
 
-        //     if(res.status){
+            if(res.status){
+                navigation.navigate("Verify OTP",email);
+                setLoading(false);
 
-        //     }
+            }
 
 
-        // } catch (err) {
-        //     Alert.alert(res?.message || "Có lỗi xảy ra.");
-        // }
+        } catch (err) {
+            Alert.alert(res?.message || "Có lỗi xảy ra.");
+        }
     };
 
 
@@ -48,6 +56,12 @@ const GetOTPPage = ({ navigation, route }) => {
     return (
         <View style={styles.container}>
             <OceanBackground />
+            <Spinner
+                visible={loading}
+                textContent={'Đang tải...'}
+                textStyle={{ color: '#fff' }}
+            />
+
             <View style={{ flexDirection: "column", height: "100%" }}>
                 <Text style={styles.textAlert}>Send email : {email}</Text>
                 <View style={{ flexGrow: 1 }}>
