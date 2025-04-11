@@ -49,10 +49,10 @@ const styles = StyleSheet.create({
     },
 
     buttonNavigate: {
-        width: 200,
-        padding: 20,
+        width: 300,
+        padding: 15,
         backgroundColor: "#eaeaea",
-        borderRadius: 15,
+        borderRadius: 10,
         marginTop: 20
     },
     textBtnNavi: {

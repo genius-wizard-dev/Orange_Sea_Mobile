@@ -1,3 +1,3 @@
-import authSlice from "../slices/AuthSlice";
+import authSlice from "../slices/authSlice";
 
 export default authSlice

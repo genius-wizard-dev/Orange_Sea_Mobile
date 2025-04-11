@@ -1,4 +1,5 @@
 
+import { Provider } from 'react-redux';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from "@react-navigation/stack";
 
@@ -29,104 +30,114 @@ import SettingPageIndex from './src/pages/MePages/SettingPages/SettingPageIndex'
 import SearchPageIndex from './src/pages/SearchPages/SearchPageIndex';
 import ChatDetailScreenIndex from './src/pages/ChatsPages/ChatDetailScreen/ChatDetailScreenIndex';
 import { color_main } from './src/styleMixins/@minxin';
-
+import { store } from "./src/redux/store.js"
+import GetOTPPage from './src/pages/AuthPages/GetOTPPage.js';
 
 
 export default function App() {
   return (
-    <NavigationContainer>
+    <Provider store={store}>
+      <NavigationContainer>
 
-      <Stack.Navigator
-        initalRouteName="splashScreen"
-        screenOptions={({ navigation }) => ({
-          headerLeft: () => (
-            <TouchableOpacity
-              onPress={() => navigation.goBack()}
-              style={{ marginLeft: 18 }}
-            >
-              <FontAwesomeIcon
-                icon={faCircleChevronLeft}
-                size={26}
-                style={{ color: "#ffffff" }}
-              />
-            </TouchableOpacity>
-          ),
-          headerStyle: {
-            backgroundColor: color_main,
-            height:48
-          },
-          headerTintColor: '#fff',
-          headerTitleStyle: {
-            fontWeight: '500',
-          },
-          headerTitleAlign: 'center',
-        })}
-      >
-        <Stack.Screen name="splashScreen"
-          component={SplashScreenComponent}
-          options={{ headerShown: false }} />
+        {/* <StatusBar style='auto'/> */}
 
-        <Stack.Screen name="Chats"
-          component={MainView}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen name="Contacts"
-          component={ContactsPage}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen name="TimeLine"
-          component={TimeLinePage}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen name="Me"
-          component={MePage}
-          options={{ headerShown: false }}
-        />
+        <Stack.Navigator
+          initialRouteName="splashScreen"
+          screenOptions={({ navigation }) => ({
+            headerLeft: () => (
+              <TouchableOpacity
+                onPress={() => navigation.goBack()}
+                style={{ marginLeft: 18 }}
+              >
+                <FontAwesomeIcon
+                  icon={faCircleChevronLeft}
+                  size={26}
+                  style={{ color: "#ffffff" }}
+                />
+              </TouchableOpacity>
+            ),
+            headerStyle: {
+              backgroundColor: color_main,
+              height: 48
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+              fontWeight: '500',
+            },
+            headerTitleAlign: 'center',
+          })}
+        >
+          <Stack.Screen name="splashScreen"
+            component={SplashScreenComponent}
+            options={{ headerShown: false }} />
 
-
-        <Stack.Screen name="ContainerAuthPage"
-          component={ContainerAuthPages}
-          options={{ headerShown: false }}
-        />
-
-        <Stack.Screen name="Đăng nhập"
-          component={LoginPage}
-        />
-        <Stack.Screen name="Đăng ký"
-          component={RegisterPage}
-        />
+          <Stack.Screen name="Chats"
+            component={MainView}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen name="Contacts"
+            component={ContactsPage}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen name="TimeLine"
+            component={TimeLinePage}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen name="Me"
+            component={MePage}
+            options={{ headerShown: false }}
+          />
 
 
-        <Stack.Screen name="SearchPage"
-          component={SearchPageIndex}
-          options={{ headerShown: false , animation:"none"}}
-        />
+          <Stack.Screen name="ContainerAuthPage"
+            component={ContainerAuthPages}
+            options={{ headerShown: false }}
+          />
+
+          <Stack.Screen name="Đăng nhập"
+            component={LoginPage}
+          />
+          <Stack.Screen name="Đăng ký"
+            component={RegisterPage}
+          />
+
+          <Stack.Screen name="Xác thực OTP"
+            component={GetOTPPage}
+          />
 
 
-        <Stack.Screen name="Cài đặt"
-          component={SettingPageIndex}
-        />
+          <Stack.Screen name="SearchPage"
+            component={SearchPageIndex}
+            options={{ headerShown: false, animation: "none" }}
+          />
 
-        <Stack.Screen name="ChatDetail"
-          component={ChatDetailScreenIndex}
-          options={{ headerShown: false ,
-            //  animation:"none" 
+
+          <Stack.Screen name="Cài đặt"
+            component={SettingPageIndex}
+          />
+
+          <Stack.Screen name="ChatDetail"
+            component={ChatDetailScreenIndex}
+            options={{
+              headerShown: false,
+              //  animation:"none" 
             }}
-        />
+          />
 
 
 
 
 
-      </Stack.Navigator>
+        </Stack.Navigator>
 
 
-      {/* 
+        {/* 
       <View style={styles.container}>
         <Text>Phong</Text>
         
       </View> */}
-    </NavigationContainer>
+      </NavigationContainer>
+    </Provider>
   );
 }
 

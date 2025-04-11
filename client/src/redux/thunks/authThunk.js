@@ -1,16 +1,18 @@
-import {createAsyncThunk} from "@reduxjs/toolkit"
+import { createAsyncThunk } from "@reduxjs/toolkit"
 import { post } from "../../services/api.service"
 import ENDPOINT from "../../constants/endpoint"
 
 export const registerUser = createAsyncThunk(
     "authRegister/user",
-    async (CredentialsContainer, {rejectWithValue})=>{
+    async (data, { rejectWithValue }) => {
         try {
-            
-            const res = await post(ENDPOINT.REGISTER_USER, registerUser);
-            if(!res.data.token){
-                throw new Error("token khong hop le");
-            }
+
+            // console.log(data)
+
+            const res = await post(ENDPOINT.REGISTER_USER, data);
+
+
+            console.log(res)
             return res.data;
 
         } catch (error) {
@@ -21,4 +23,4 @@ export const registerUser = createAsyncThunk(
             }
         }
     }
-)
+);
