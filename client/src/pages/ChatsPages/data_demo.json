@@ -1,0 +1,247 @@
+[
+    {
+        "id": 1,
+        "name": "Nguyễn Hình",
+        "imageAvatar": "https://i.ibb.co/4MHWXDR/1.jpg",
+        "timeNearest": "1 phút trước",
+        "messages": [
+            {
+                "id": 1,
+                "text": "Chào bạn!",
+                "sender": "me",
+                "time": "2025-03-16 14:30",
+                "seen": true
+            },
+            {
+                "id": 2,
+                "text": "Xin chào! Bạn khỏe không?",
+                "sender": "them",
+                "time": "2025-03-16 14:32",
+                "seen": true
+            },
+            {
+                "id": 3,
+                "text": "Mình ổn, bạn sao rồi?",
+                "sender": "me",
+                "time": "2025-03-16 14:33",
+                "seen": false
+            },
+            {
+                "id": 4,
+                "text": "Cũng ổn. Dạo này bận gì không?",
+                "sender": "them",
+                "time": "2025-03-16 14:35",
+                "seen": false
+            }
+        ]
+    },
+    {
+        "id": 2,
+        "name": "Lê Văn An",
+        "imageAvatar": "https://i.ibb.co/sVqS2Sd/4.jpg",
+        "timeNearest": "5 phút trước",
+        "messages": [
+            {
+                "id": 1,
+                "text": "Mai họp lúc 9h nhé.",
+                "sender": "me",
+                "time": "2025-03-16 13:00",
+                "seen": true
+            },
+            {
+                "id": 2,
+                "text": "Ok bạn, nhớ báo trước 15p nhé!",
+                "sender": "them",
+                "time": "2025-03-16 13:05",
+                "seen": false
+            },
+            {
+                "id": 3,
+                "text": "Chắc chắn rồi! Mình sẽ chuẩn bị trước.",
+                "sender": "me",
+                "time": "2025-03-16 13:10",
+                "seen": false
+            }
+        ]
+    },
+    {
+        "id": 3,
+        "name": "Trần Thị Lan",
+        "imageAvatar": "https://i.ibb.co/3pYzVwx/3.jpg",
+        "timeNearest": "10 phút trước",
+        "messages": [
+            {
+                "id": 1,
+                "text": "Nhớ mang tài liệu giúp mình.",
+                "sender": "them",
+                "time": "2025-03-16 12:50",
+                "seen": true
+            },
+            {
+                "id": 2,
+                "text": "Oke, mình mang rồi nè!",
+                "sender": "me",
+                "time": "2025-03-16 12:52",
+                "seen": false
+            },
+            {
+                "id": 3,
+                "text": "Cảm ơn nhiều nhé!",
+                "sender": "them",
+                "time": "2025-03-16 12:55",
+                "seen": false
+            },
+            {
+                "id": 4,
+                "text": "Không có gì đâu, mai gặp nhé!",
+                "sender": "me",
+                "time": "2025-03-16 12:57",
+                "seen": false
+            }
+        ]
+    },
+    {
+        "id": 4,
+        "name": "Hoàng Văn Tùng",
+        "imageAvatar": "https://i.ibb.co/3pYzVwx/3.jpg",
+        "timeNearest": "30 phút trước",
+        "messages": [
+            {
+                "id": 1,
+                "text": "Tối nay đi ăn không?",
+                "sender": "me",
+                "time": "2025-03-16 11:00",
+                "seen": false
+            },
+            {
+                "id": 2,
+                "text": "Chắc là không rồi, mình bận chút!",
+                "sender": "them",
+                "time": "2025-03-16 11:10",
+                "seen": false
+            },
+            {
+                "id": 3,
+                "text": "Không sao, bữa khác nhé!",
+                "sender": "me",
+                "time": "2025-03-16 11:15",
+                "seen": false
+            }
+        ]
+    },
+    {
+        "id": 5,
+        "name": "Hoàng Văn Tùng",
+        "imageAvatar": "https://i.ibb.co/3pYzVwx/3.jpg",
+        "timeNearest": "30 phút trước",
+        "messages": [
+            {
+                "id": 1,
+                "text": "Tối nay đi ăn không?",
+                "sender": "me",
+                "time": "2025-03-16 11:00",
+                "seen": false
+            },
+            {
+                "id": 2,
+                "text": "Chắc là không rồi, mình bận chút!",
+                "sender": "them",
+                "time": "2025-03-16 11:10",
+                "seen": false
+            },
+            {
+                "id": 3,
+                "text": "Không sao, bữa khác nhé!",
+                "sender": "me",
+                "time": "2025-03-16 11:15",
+                "seen": false
+            }
+        ]
+    },
+    {
+        "id": 6,
+        "name": "Hoàng Văn Tùng",
+        "imageAvatar": "https://i.ibb.co/3pYzVwx/3.jpg",
+        "timeNearest": "30 phút trước",
+        "messages": [
+            {
+                "id": 1,
+                "text": "Tối nay đi ăn không?",
+                "sender": "me",
+                "time": "2025-03-16 11:00",
+                "seen": false
+            },
+            {
+                "id": 2,
+                "text": "Chắc là không rồi, mình bận chút!",
+                "sender": "them",
+                "time": "2025-03-16 11:10",
+                "seen": false
+            },
+            {
+                "id": 3,
+                "text": "Không sao, bữa khác nhé!",
+                "sender": "me",
+                "time": "2025-03-16 11:15",
+                "seen": false
+            }
+        ]
+    },
+    {
+        "id": 7,
+        "name": "Hoàng Văn Tùng",
+        "imageAvatar": "https://i.ibb.co/3pYzVwx/3.jpg",
+        "timeNearest": "30 phút trước",
+        "messages": [
+            {
+                "id": 1,
+                "text": "Tối nay đi ăn không?",
+                "sender": "me",
+                "time": "2025-03-16 11:00",
+                "seen": false
+            },
+            {
+                "id": 2,
+                "text": "Chắc là không rồi, mình bận chút!",
+                "sender": "them",
+                "time": "2025-03-16 11:10",
+                "seen": false
+            },
+            {
+                "id": 3,
+                "text": "Không sao, bữa khác nhé!",
+                "sender": "me",
+                "time": "2025-03-16 11:15",
+                "seen": false
+            }
+        ]
+    },{
+        "id": 8,
+        "name": "Hoàng Văn Tùng",
+        "imageAvatar": "https://i.ibb.co/3pYzVwx/3.jpg",
+        "timeNearest": "30 phút trước",
+        "messages": [
+            {
+                "id": 1,
+                "text": "Tối nay đi ăn không?",
+                "sender": "me",
+                "time": "2025-03-16 11:00",
+                "seen": false
+            },
+            {
+                "id": 2,
+                "text": "Chắc là không rồi, mình bận chút!",
+                "sender": "them",
+                "time": "2025-03-16 11:10",
+                "seen": false
+            },
+            {
+                "id": 3,
+                "text": "Không sao, bữa khác nhé!",
+                "sender": "me",
+                "time": "2025-03-16 11:15",
+                "seen": false
+            }
+        ]
+    }
+]
