@@ -6,16 +6,20 @@ import { stylesMixin } from '../../styleMixins/@minxin';
 import { useDispatch, useSelector } from 'react-redux'
 import { registerUser } from '../../redux/thunks/authThunk';
 
+import Spinner from 'react-native-loading-spinner-overlay';
 
-import axios from "axios";
 
-const RegisterPage = () => {
+
+const RegisterPage = ({ navigation }) => {
+
+
     const dispatch = useDispatch();
 
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+    const [loading, setLoading] = useState(false);
 
     // const { user } = useSelector(state => state.user);
 
@@ -25,9 +29,8 @@ const RegisterPage = () => {
     const passwordInputRef = useRef(null);
 
 
- 
 
-    const handleRegister = async() => {
+    const handleRegister = async () => {
         if (!username || !password || !email || !confirmPassword) {
             Alert.alert("Thông báo", "Vui lòng điền đầy đủ thông tin.");
             return;
@@ -50,17 +53,20 @@ const RegisterPage = () => {
         };
 
         try {
+            setLoading(true)
             const res = await dispatch(registerUser(data)).unwrap();
             console.log(res)
             Alert.alert(res?.message || "Có lỗi xảy ra.");
-            
-            if(res.status){
 
+            if (res.status) {
+                navigation.navigate("Xác thực OTP",email);
+                setLoading(false)
             }
 
 
         } catch (err) {
             Alert.alert(res?.message || "Có lỗi xảy ra.");
+            setLoading(true)
         }
     };
 
@@ -69,6 +75,11 @@ const RegisterPage = () => {
     return (
         <View style={styles.container}>
             <OceanBackground />
+            <Spinner
+                visible={loading}
+                textContent={'Đang tải...'}
+                textStyle={{ color: '#fff' }}
+            />
             <View style={{ flexDirection: "column", height: "100%" }}>
                 <Text style={styles.textAlert}>One step away from something great!</Text>
                 <View style={{ flexGrow: 1 }}>
@@ -124,7 +135,7 @@ const RegisterPage = () => {
                 <View style={styles.lineBtn}>
                     <TouchableOpacity style={[stylesMixin.buttonComponent, styles.btnSetLog]} onPress={handleRegister}>
                         <View>
-                            <Text style={[styles.textBtn]}>CREATE ACCOUNT</Text>
+                            <Text style={[styles.textBtn]}>CONTINUTE</Text>
                             {/* <FontAwesomeIcon icon={faRightToBracket} style={{ color: "#fff" }} size={20} /> */}
                         </View>
                     </TouchableOpacity>
