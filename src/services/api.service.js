@@ -15,6 +15,26 @@ export const get = async (uri,token, params) => {
     }
 };
 
+export const getMeAxios = async (uri, token, customHeaders = {}) => {
+    try {
+        const headers = {
+            ...customHeaders,
+        };
+
+        if (token) {
+            headers.Authorization = `Bearer ${token}`;
+        }
+
+        // console.log("Headers gửi đi:", headers);
+
+        const res = await instance.get(uri, { headers });
+        return res;
+    } catch (error) {
+        throw error;
+    }
+};
+
+
 export const postLogin = async (uri, data, headers={}) => {
     try {
         

@@ -17,7 +17,7 @@ export const registerUser = createAsyncThunk(
             if (error.response) {
                 return rejectWithValue(error.response.data);
             } else {
-                return rejectWithValue({ message: "Lỗi không xác định thunks - server bị lỗi/chưa khởi động" });
+                return rejectWithValue({ message: "Lỗi không xác định auth thunks - server bị lỗi/chưa khởi động" });
             }
         }
     }
@@ -38,7 +38,7 @@ export const verifyOTP = createAsyncThunk(
             if (error.response) {
                 return rejectWithValue(error.response.data);
             } else {
-                return rejectWithValue({ message: "Lỗi không xác định thunks - server bị lỗi/chưa khởi động" });
+                return rejectWithValue({ message: "Lỗi không xác định auth thunks - server bị lỗi/chưa khởi động" });
             }
         }
     }
