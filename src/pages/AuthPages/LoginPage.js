@@ -9,53 +9,10 @@ import OceanBackground from '../../components/OceanBackground';
 
 import Spinner from 'react-native-loading-spinner-overlay';
 
-
-// import DeviceInfo from 'react-native-device-info';
-// import * as Device from 'expo-device';
 import * as Application from 'expo-application';
 
-// import * as Notifications from 'expo-notifications';
-// import * as Device from 'expo-device';
-// import { Platform } from 'react-native';
 
-
-import messaging from '@react-native-firebase/messaging';
-import { useEffect } from 'react';
 import { Alert } from 'react-native';
-
-
-export async function registerForPushNotificationsAsync() {
-    let token;
-
-    if (Device.isDevice) {
-        const { status: existingStatus } = await Notifications.getPermissionsAsync();
-        let finalStatus = existingStatus;
-
-        if (existingStatus !== 'granted') {
-            const { status } = await Notifications.requestPermissionsAsync();
-            finalStatus = status;
-        }
-
-        if (finalStatus !== 'granted') {
-            alert('Failed to get push token for push notification!');
-            return null;
-        }
-
-        token = (await Notifications.getExpoPushTokenAsync()).data;
-        console.log('📱 Expo Push Token (FCM token):', token);
-    } else {
-        alert('Must use physical device for Push Notifications');
-    }
-
-    if (Platform.OS === 'android') {
-        Notifications.setNotificationChannelAsync('default', {
-            name: 'default',
-            importance: Notifications.AndroidImportance.MAX,
-        });
-    }
-
-    return token;
-}
 
 const LoginPage = ({ navigation }) => {
 
@@ -66,7 +23,7 @@ const LoginPage = ({ navigation }) => {
     const passwordInputRef = useRef(null);
 
 
-    const handleLogin = () => {
+    const handleLogin = async () => {
 
 
         // console.log(Application.getAndroidId())
@@ -85,45 +42,10 @@ const LoginPage = ({ navigation }) => {
         };
         console.log(data)
 
-        // try {
-        //     setLoading(true)
-        //     const res = await dispatch(verifyOTP(data)).unwrap();
-        //     console.log(res)
-        //     Alert.alert(res?.message || "Có lỗi xảy ra.");
-
-        //     if (res.status) {
-        //         navigation.navigate("Verify OTP", email);
-        //         setLoading(false);
-
-        //     }
-
-
-        // } catch (err) {
-        //     Alert.alert(res?.message || "Có lỗi xảy ra.");
-        // }
 
     }
-    const useFCMToken = () => {
-        useEffect(() => {
-            const getToken = async () => {
-                const authStatus = await messaging().requestPermission();
-                const enabled =
-                    authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
-                    authStatus === messaging.AuthorizationStatus.PROVISIONAL;
 
-                if (enabled) {
-                    const token = await messaging().getToken();
-                    console.log('✅ FCM Token:', token);
-                    Alert.alert("FCM Token", token);
-                } else {
-                    console.log("❌ Permission not granted");
-                }
-            };
 
-            getToken();
-        }, []);
-    };
-    useFCMToken()
 
 
     return (
