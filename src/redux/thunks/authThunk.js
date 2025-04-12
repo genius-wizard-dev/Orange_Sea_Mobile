@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit"
-import { post } from "../../services/api.service"
+import { post, postLogin } from "../../services/api.service"
 import ENDPOINT from "../../constants/endpoint"
 
 export const registerUser = createAsyncThunk(
@@ -39,6 +39,28 @@ export const verifyOTP = createAsyncThunk(
                 return rejectWithValue(error.response.data);
             } else {
                 return rejectWithValue({ message: "Lỗi không xác định thunks - server bị lỗi/chưa khởi động" });
+            }
+        }
+    }
+);
+
+
+export const loginUser = createAsyncThunk(
+    "authLogin/user",
+    async ( { body,customHeaders }, { rejectWithValue }) => {
+        try {
+           
+            const res = await postLogin(ENDPOINT.LOGIN_USER, body, customHeaders);
+
+
+            return res.data;
+        } catch (error) {
+            if (error.response) {
+                return rejectWithValue(error.response.data);
+            } else {
+                return rejectWithValue({
+                    message: "Lỗi không xác định - server không phản hồi hoặc bị crash",
+                });
             }
         }
     }

@@ -1,51 +1,52 @@
 import { View, Text, StyleSheet, StatusBar, Image } from 'react-native'
 import React, { useEffect } from 'react'
-
-// import AsyncStorage from "@react-native-async-storage/async-storage";
-// import { jwtDecode } from "jwt-decode";
-// import { useDispatch } from "react-redux";
-
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const logo_img = require("../../../assets/logo_icon_text.png")
 
-
 const SplashScreenComponent = ({ navigation }) => {
 
-
-    // const dispatch = useDispatch();
-
-    // useEffect(() => {
-    //     const checkToken = async () => {
-    //         const token = await AsyncStorage.getItem("token");
-    //         if (!token) return;
-
-    //         try {
-    //             const decoded = jwtDecode(token);
-    //             if (decoded.exp * 1000 > Date.now()) {
-    //                 const user = decoded.user || {};
-    //                 dispatch(loginSuccess({ token, user }));
-    //             }
-    //         } catch (e) {
-    //             console.log("Token không hợp lệ:", e);
-    //         }
-    //     };
-
-    //     checkToken();
-    // }, []);
-
-
+    const getToken = async () => {
+        try {
+            const token = await AsyncStorage.getItem("token");
+            return token;
+        } catch (error) {
+            return null;
+        }
+    };
 
     useEffect(() => {
-        const timer = setTimeout(() => {
-            navigation.replace('ContainerAuthPage');
-        }, 900);
-        return () => clearTimeout(timer);
-    }, [navigation]);
+        const checkAuth = async () => {
+            try {
+                const token = await getToken();
+
+                setTimeout(() => {
+                    if (token) {
+                        navigation.reset({
+                            index: 0,
+                            routes: [{ name: 'Chats' }],
+                        });
+                    } else {
+                        navigation.reset({
+                            index: 0,
+                            routes: [{ name: 'ContainerAuthPage' }],
+                        });
+                    }
+                }, 800);
+            } catch (error) {
+                navigation.reset({
+                    index: 0,
+                    routes: [{ name: 'ContainerAuthPage' }],
+                });
+            }
+        };
+
+        checkAuth();
+    }, []);
 
     return (
         <View style={styles.container}>
             <StatusBar hidden={true} style="dark" />
-            {/* <Text style={styles.text}>INTRO</Text> */}
             <Image source={logo_img} style={styles.img_logo} />
         </View>
     )
@@ -58,7 +59,6 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        // backgroundColor: '#ff6666',
         backgroundColor: '#fff',
         padding: 30
     },
@@ -66,10 +66,5 @@ const styles = StyleSheet.create({
         width: "75%",
         objectFit: "contain",
         borderRadius: 20
-    },
-    text: {
-        color: "#fff",
-        fontSize: 35,
-        fontWeight: "700",
     },
 });

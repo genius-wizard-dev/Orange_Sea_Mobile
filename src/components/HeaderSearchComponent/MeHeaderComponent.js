@@ -7,7 +7,7 @@ import { faGear } from '@fortawesome/free-solid-svg-icons/faGear'
 const MeHeaderComponent = ({navigation}) => {
     return (
         <View>
-            <TouchableOpacity onPress={()=> navigation.navigate("Cài đặt")}>
+            <TouchableOpacity onPress={()=> navigation.navigate("Setting")}>
                 <FontAwesomeIcon icon={faGear} size={25} style={{color:"#fff"}}/>
             </TouchableOpacity>
         </View>

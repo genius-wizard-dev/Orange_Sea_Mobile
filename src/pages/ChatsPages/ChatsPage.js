@@ -1,12 +1,32 @@
 import { View, Text, StyleSheet, FlatList, TouchableOpacity, Image } from 'react-native'
-import React from 'react'
+import React from 'react';
 
-import data from "./data_demo.json"
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+import data from "./data_demo.json";
+import { useSelector } from 'react-redux';
 
 const ChatsPage = ({ navigation }) => {
 
     // const ARRAY_LIST_MESSAGE_DEMO = 
     const chatData = data;
+
+    const {token} = useSelector((state)=>state.auth);
+
+    console.log(token)
+    
+
+
+
+
+
+
+
+    
+
+
+
+
 
     return (
         <View style={styles.container}>
@@ -23,7 +43,7 @@ const ChatsPage = ({ navigation }) => {
                                 <TouchableOpacity
                                     key={item.id}
                                     style={styles.chatItem}
-                                    onPress={() => navigation.navigate("ChatDetail", { chat: item ,navigation})}
+                                    onPress={() => navigation.navigate("ChatDetail", { chat: item, navigation })}
                                 >
                                     <Image source={{ uri: item.imageAvatar }} style={styles.avatar} />
                                     <View style={styles.chatInfo}>
@@ -55,19 +75,19 @@ const styles = StyleSheet.create({
         width: "100%",
         justifyContent: "center",
         backgroundColor: "#fff",
-        padding:5,
-        paddingBottom:30
+        padding: 5,
+        paddingBottom: 30
     },
-    
-    tab_tag:{
-        paddingTop:10,
-        paddingBottom:10,
-        borderBottomColor:"#ffcccc",
-        borderBottomWidth:2
+
+    tab_tag: {
+        paddingTop: 10,
+        paddingBottom: 10,
+        borderBottomColor: "#ffcccc",
+        borderBottomWidth: 2
     },
-    text_tag:{
-        fontWeight:"400",
-        fontSize:18
+    text_tag: {
+        fontWeight: "400",
+        fontSize: 18
     },
 
     text: {
@@ -79,10 +99,10 @@ const styles = StyleSheet.create({
         alignItems: "center",
         borderBottomWidth: 1,
         borderColor: "#ddd",
-        marginTop:5,
-        marginBottom:5,
-        paddingBottom:10,
-        paddingTop:10,
+        marginTop: 5,
+        marginBottom: 5,
+        paddingBottom: 10,
+        paddingTop: 10,
     },
     avatar: {
         width: 50,

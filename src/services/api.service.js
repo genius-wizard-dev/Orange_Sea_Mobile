@@ -15,6 +15,16 @@ export const get = async (uri,token, params) => {
     }
 };
 
+export const postLogin = async (uri, data, headers={}) => {
+    try {
+        
+        const res = await instance.post(uri, data, { headers });
+        return res;
+    } catch (error) {
+        throw error;
+    }
+};
+
 export const post = async (uri, data, token) => {
     try {
         const headers = {};

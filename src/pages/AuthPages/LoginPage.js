@@ -9,10 +9,13 @@ import OceanBackground from '../../components/OceanBackground';
 
 import Spinner from 'react-native-loading-spinner-overlay';
 
+import { useDispatch, useSelector } from 'react-redux'
+
 import * as Application from 'expo-application';
 
 
 import { Alert } from 'react-native';
+import { loginUser } from '../../redux/thunks/authThunk';
 
 const LoginPage = ({ navigation }) => {
 
@@ -21,6 +24,18 @@ const LoginPage = ({ navigation }) => {
 
     const [loading, setLoading] = useState(false);
     const passwordInputRef = useRef(null);
+
+    const dispatch = useDispatch();
+
+    const generateRandomToken = () => {
+        const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        let token = '';
+        for (let i = 0; i < 16; i++) {  // 16 ký tự dài để token khó trùng
+            const randomIndex = Math.floor(Math.random() * chars.length);
+            token += chars[randomIndex];
+        }
+        return token;
+    };
 
 
     const handleLogin = async () => {
@@ -35,12 +50,35 @@ const LoginPage = ({ navigation }) => {
             return;
         }
 
-        const data = {
-            username: username,
-            password: password,
-            "x-device-id": device_id
+        const body = {
+            username,
+            password
         };
-        console.log(data)
+
+        const customHeaders = {
+            "x-device-id": device_id,
+            "x-fcm-token": generateRandomToken()
+        };
+
+        try {
+            setLoading(true);
+            const res = await dispatch(loginUser({ body, customHeaders })).unwrap();
+            // console.log(res);
+
+            // Alert.alert(res?.message || "Đăng nhập thành công!");
+
+            if (res.status) {
+                navigation.navigate("Chats", body, res);
+            }
+
+        } catch (err) {
+            if (err?.status !== 401) {
+                Alert.alert(err?.message || "Có lỗi xảy ra.");
+            }
+            console.log("Lỗi đăng nhập:", err); 
+        } finally {
+            setLoading(false);
+        }
 
 
     }

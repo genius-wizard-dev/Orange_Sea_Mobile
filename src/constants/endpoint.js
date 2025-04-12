@@ -3,9 +3,6 @@ const ENDPOINT = {
 
     VERIFY_OTP:"/api/auth/verify-otp",
 
-
-
-
     LOGIN_USER : "/api/auth/login"
 
 
