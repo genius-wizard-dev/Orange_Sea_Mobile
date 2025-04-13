@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native'
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux';
 import OceanBackground from '../../components/OceanBackground';
@@ -15,11 +15,9 @@ const GetOTPPage = ({ navigation, route }) => {
     const dispatch = useDispatch();
 
     const [otp, setOTP] = useState('');
-     const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     // const { user } = useSelector(state => state.user);
-
-
 
     const handleRegister = async () => {
         if (!otp) {
@@ -27,27 +25,33 @@ const GetOTPPage = ({ navigation, route }) => {
             return;
         }
 
-
         const data = {
             email: email,
             otp
         };
 
+        console.log(data)
+
         try {
             setLoading(true)
             const res = await dispatch(verifyOTP(data)).unwrap();
+            console.log("xac thuc")
             console.log(res)
+
+
             Alert.alert(res?.message || "Có lỗi xảy ra.");
 
-            if(res.status){
-                navigation.navigate("Verify OTP",email);
-                setLoading(false);
+            if (res.status) {
+                navigation.navigate("Login", email);
 
             }
 
 
         } catch (err) {
-            Alert.alert(res?.message || "Có lỗi xảy ra.");
+            console.log("❌ Lỗi khi xác thực:", err);
+            Alert.alert(err?.message || "Có lỗi xảy ra khi xác thực.");
+        } finally {
+            setLoading(false);
         }
     };
 

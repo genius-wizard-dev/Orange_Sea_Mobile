@@ -3,6 +3,9 @@ const ENDPOINT = {
     VERIFY_OTP:"/api/auth/verify-otp",
     LOGIN_USER : "/api/auth/login",
 
+    FORGOT_PASSWORD: "/api/auth/forgot-password",
+    RESET_PASSWORD: " api/auth/reset-password",
+
 
     GET_ME:"/api/profile/me",
     PUT_ME:"/api/profile/me"

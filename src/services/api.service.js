@@ -73,6 +73,20 @@ export const put = async (uri, data, token) => {
     }
 };
 
+export const putMeAxios = async (uri, data, token, customHeaders = {}) => {
+    try {
+        const headers = {
+            ...(token && { Authorization: `Bearer ${token}` }),
+            ...customHeaders, // 👈 gộp thêm custom headers như x-device-id
+        };
+
+        const res = await instance.put(uri, data, { headers });
+        return res;
+    } catch (error) {
+        throw error;
+    }
+};
+
 export const del = async (uri, data, token) => {
     try {
         const headers = {};

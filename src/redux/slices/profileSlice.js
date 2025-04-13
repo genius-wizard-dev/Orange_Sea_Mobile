@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getMe } from "../thunks/profileThunk";   
+import { getMe, putMe } from "../thunks/profileThunk";   
 
 const initialState = {
     userProfile: null,
@@ -26,6 +26,19 @@ const profileSlice = createSlice({
             .addCase(getMe.rejected, (state, action) => {
                 state.status = "failed";
                 state.error = action.payload || { message: "Lỗi không xác định khi lấy profile" };
+            })
+
+            .addCase(putMe.pending, (state) => {
+                state.status = "loading";
+                state.error = null;
+            })
+            .addCase(putMe.fulfilled, (state, action) => {
+                state.status = "succeeded";
+                state.userProfile = action.payload;
+            })
+            .addCase(putMe.rejected, (state, action) => {
+                state.status = "failed";
+                state.error = action.payload || { message: "Lỗi không xác định khi update profile" };
             });
     },
 });

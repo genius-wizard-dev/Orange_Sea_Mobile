@@ -55,18 +55,24 @@ const RegisterPage = ({ navigation }) => {
         try {
             setLoading(true)
             const res = await dispatch(registerUser(data)).unwrap();
-            console.log(res)
+            // console.log("dk");
+            // console.log(res);
+
+
+
             Alert.alert(res?.message || "Có lỗi xảy ra.");
 
             if (res.status) {
-                navigation.navigate("Xác thực OTP",email);
-                setLoading(false)
+                navigation.navigate("Verify OTP", email);
+                // setLoading(false)
             }
 
 
         } catch (err) {
-            Alert.alert(res?.message || "Có lỗi xảy ra.");
-            setLoading(true)
+            console.log("❌ Lỗi khi đăng ký:", err);
+            Alert.alert(err?.message || "Có lỗi xảy ra khi đăng ký.");
+        } finally {
+            setLoading(false);
         }
     };
 

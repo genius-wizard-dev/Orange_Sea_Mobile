@@ -117,7 +117,7 @@ const LoginPage = ({ navigation }) => {
                         />
                     </View>
                     <View>
-                        <TouchableOpacity style={styles.fgPassword}>
+                        <TouchableOpacity style={styles.fgPassword} onPress={()=>navigation.navigate("Forgot password")}>
                             <Text style={styles.fgPassword}>Forgot password</Text>
                         </TouchableOpacity>
                     </View>

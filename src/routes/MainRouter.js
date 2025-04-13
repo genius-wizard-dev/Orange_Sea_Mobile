@@ -29,119 +29,134 @@ import SearchPageIndex from '../pages/SearchPages/SearchPageIndex';
 import ChatDetailScreenIndex from '../pages/ChatsPages/ChatDetailScreen/ChatDetailScreenIndex';
 import { color_main } from '../styleMixins/@minxin';
 import GetOTPPage from '../pages/AuthPages/GetOTPPage.js';
+import UpdateProfile from '../pages/MePages/SettingPages/UpdateProfile.js';
+import ForgotPassword from '../pages/AuthPages/ForgotPassword.js';
 
 const MainRouter = () => {
   return (
     <NavigationContainer>
 
-    {/* <StatusBar style='auto'/> */}
+      {/* <StatusBar style='auto'/> */}
 
-    <Stack.Navigator
-      initialRouteName="splashScreen"
-      screenOptions={({ navigation }) => ({
-        headerLeft: () => (
-          <TouchableOpacity
-            onPress={() => navigation.goBack()}
-            style={{ marginLeft: 18 }}
-          >
-            <FontAwesomeIcon
-              icon={faCircleChevronLeft}
-              size={26}
-              style={{ color: "#ffffff" }}
-            />
-          </TouchableOpacity>
-        ),
-        headerStyle: {
-          backgroundColor: color_main,
-          height: 48
-        },
-        headerTintColor: '#fff',
-        headerTitleStyle: {
-          fontWeight: '500',
-        },
-        headerTitleAlign: 'center',
-      })}
-    >
-      <Stack.Screen name="splashScreen"
-        component={SplashScreenComponent}
-        options={{ headerShown: false }} />
+      <Stack.Navigator
+        initialRouteName="splashScreen"
+        screenOptions={({ navigation }) => ({
+          headerLeft: () => (
+            <TouchableOpacity
+              onPress={() => navigation.goBack()}
+              style={{ marginLeft: 18 }}
+            >
+              <FontAwesomeIcon
+                icon={faCircleChevronLeft}
+                size={26}
+                style={{ color: "#ffffff" }}
+              />
+            </TouchableOpacity>
+          ),
+          headerStyle: {
+            backgroundColor: color_main,
+            height: 48
+          },
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: '500',
+          },
+          headerTitleAlign: 'center',
+        })}
+      >
+        <Stack.Screen name="splashScreen"
+          component={SplashScreenComponent}
+          options={{ headerShown: false }} />
 
-      <Stack.Screen name="Chats"
-        component={MainView}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen name="Contacts"
-        component={ContactsPage}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen name="TimeLine"
-        component={TimeLinePage}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen name="Me"
-        component={MePage}
-        options={{ headerShown: false }}
-      />
-
-
-      <Stack.Screen name="ContainerAuthPage"
-        component={ContainerAuthPages}
-        options={{ headerShown: false }}
-      />
-
-      <Stack.Screen name="Login"
-        component={LoginPage}
-      />
-      <Stack.Screen name="Register"
-        component={RegisterPage}
-      />
-
-      <Stack.Screen name="Verify OTP"
-        component={GetOTPPage}
-      />
+        <Stack.Screen name="Chats"
+          component={MainView}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen name="Contacts"
+          component={ContactsPage}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen name="TimeLine"
+          component={TimeLinePage}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen name="Me"
+          component={MePage}
+          options={{ headerShown: false }}
+        />
 
 
-      <Stack.Screen name="SearchPage"
-        component={SearchPageIndex}
-        options={{ headerShown: false, animation: "none" }}
-      />
+        <Stack.Screen name="ContainerAuthPage"
+          component={ContainerAuthPages}
+          options={{ headerShown: false }}
+        />
+
+        <Stack.Screen name="Login"
+          component={LoginPage}
+        />
+        <Stack.Screen name="Register"
+          component={RegisterPage}
+        />
+
+        <Stack.Screen name="Verify OTP"
+          component={GetOTPPage}
+        />
 
 
-      <Stack.Screen name="Setting"
-        component={SettingPageIndex}
-      />
-
-      <Stack.Screen name="ChatDetail"
-        component={ChatDetailScreenIndex}
-        options={{
-          headerShown: false,
-          //  animation:"none" 
-        }}
-      />
+        <Stack.Screen name="SearchPage"
+          component={SearchPageIndex}
+          options={{ headerShown: false, animation: "none" }}
+        />
 
 
+        <Stack.Screen name="Setting"
+          component={SettingPageIndex}
+        />
+
+        <Stack.Screen name="ChatDetail"
+          component={ChatDetailScreenIndex}
+          options={{
+            headerShown: false,
+            //  animation:"none" 
+          }}
+        />
 
 
 
-    </Stack.Navigator>
+        <Stack.Screen name="Update profile"
+          component={UpdateProfile}
+
+        />
 
 
-    {/* 
+        <Stack.Screen name="Forgot password"
+          component={ForgotPassword}
+
+        />
+
+
+
+
+
+      </Stack.Navigator>
+
+
+      {/* 
   <View style={styles.container}>
     <Text>Phong</Text>
     
   </View> */}
-  </NavigationContainer>
+    </NavigationContainer>
   )
 }
 
 export default MainRouter;
 
 const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: '#fff',
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-  });
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});
