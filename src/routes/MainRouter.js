@@ -31,6 +31,7 @@ import { color_main } from '../styleMixins/@minxin';
 import GetOTPPage from '../pages/AuthPages/GetOTPPage.js';
 import UpdateProfile from '../pages/MePages/SettingPages/UpdateProfile.js';
 import ForgotPassword from '../pages/AuthPages/ForgotPassword.js';
+import ChangePassword from '../pages/AuthPages/ChangePassword.js';
 
 const MainRouter = () => {
   return (
@@ -133,6 +134,14 @@ const MainRouter = () => {
           component={ForgotPassword}
 
         />
+
+        <Stack.Screen name="Change password"
+                component={ChangePassword}
+
+              />
+
+
+
 
 
 

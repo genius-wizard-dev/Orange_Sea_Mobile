@@ -1,83 +1,79 @@
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, Alert } from 'react-native'
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, Alert, ActivityIndicator } from 'react-native'
 import React, { useState } from 'react'
 import { color_main } from '../../styleMixins/@minxin';
+import authServiceInstance from '../../config/axios.config';
+import ENDPOINT from '../../constants/endpoint';
 
-const ForgotPassword = () => {
+const ForgotPassword = ({ navigation }) => {
     const [email, setEmail] = useState('');
-    const [codeSent, setCodeSent] = useState(false);
-    const [newPassword, setNewPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
+    const [loading, setLoading] = useState(false);
 
-    const handleGetCode = () => {
-        if (!email) {
-            Alert.alert("Warning", "Please enter your email.");
-            return;
-        }
-
-        // TODO: Call API to send reset code here
-
-        setCodeSent(true);
-        Alert.alert("Success", "Verification code sent to your email.");
+    const validateEmail = (email) => {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
     };
 
-    const handleResetPassword = () => {
-        if (!newPassword || !confirmPassword) {
-            Alert.alert("Warning", "Please fill in all password fields.");
-            return;
+    const handleResetPassword = async () => {
+        try {
+            if (!email.trim()) {
+                Alert.alert("Warning", "Please enter your email.");
+                return;
+            }
+
+            if (!validateEmail(email)) {
+                Alert.alert("Warning", "Please enter a valid email address.");
+                return;
+            }
+
+            setLoading(true);
+            
+            const response = await authServiceInstance.post(ENDPOINT.FORGOT_PASSWORD, { 
+                email: email 
+            });
+
+            console.log('API Response:', response);
+            Alert.alert("Success", "Password reset instructions sent to your email.", [
+                { text: "OK", onPress: () => navigation.navigate('Login') }
+            ]);
+            
+        } catch (error) {
+            console.log('Error details:', {
+                message: error.message,
+                customMessage: error.customMessage,
+                response: error.response?.data
+            });
+
+            Alert.alert(
+                "Error", 
+                error.customMessage || error.response?.data?.message || "Failed to send reset email. Please try again."
+            );
+        } finally {
+            setLoading(false);
         }
-
-        if (newPassword !== confirmPassword) {
-            Alert.alert("Error", "Passwords do not match.");
-            return;
-        }
-
-        // TODO: Call API to reset password here
-
-        Alert.alert("Success", "Your password has been reset.");
     };
 
     return (
         <View style={styles.container}>
-            {/* <Text style={styles.title}>Forgot Password</Text> */}
-
-            <View style={styles.row}>
-                <TextInput
-                    style={[styles.input, { flex: 1 }]}
-                    placeholder="Enter your email"
-                    value={email}
-                    onChangeText={setEmail}
-                    keyboardType="email-address"
-                    autoCapitalize="none"
-                />
-                <TouchableOpacity style={styles.codeButton} onPress={handleGetCode}>
-                    <Text style={styles.codeButtonText}>Get Code</Text>
-                </TouchableOpacity>
-            </View>
-
             <TextInput
-                style={[styles.input, !codeSent && styles.disabledInput]}
-                placeholder="New Password"
-                secureTextEntry
-                value={newPassword}
-                onChangeText={setNewPassword}
-                editable={codeSent}
-            />
-
-            <TextInput
-                style={[styles.input, !codeSent && styles.disabledInput]}
-                placeholder="Confirm Password"
-                secureTextEntry
-                value={confirmPassword}
-                onChangeText={setConfirmPassword}
-                editable={codeSent}
+                style={styles.input}
+                placeholder="Enter your email"
+                value={email}
+                onChangeText={setEmail}
+                keyboardType="email-address"
+                autoCapitalize="none"
+                editable={!loading}
             />
 
             <TouchableOpacity
-                style={[styles.resetButton, !codeSent && styles.disabledButton]}
+                style={styles.resetButton}
                 onPress={handleResetPassword}
-                disabled={!codeSent}
+                disabled={loading}
             >
-                <Text style={styles.resetButtonText}>Reset Password</Text>
+                {loading ? (
+                    <ActivityIndicator color="#fff" />
+                ) : (
+                    <Text style={styles.resetButtonText}>Reset Password</Text>
+                )}
             </TouchableOpacity>
         </View>
     )
@@ -91,17 +87,6 @@ const styles = StyleSheet.create({
         padding: 20,
         backgroundColor: '#fff'
     },
-    title: {
-        fontSize: 24,
-        fontWeight: 'bold',
-        marginBottom: 30,
-        textAlign: 'center'
-    },
-    row: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        marginBottom: 15
-    },
     input: {
         borderWidth: 1,
         borderColor: '#ccc',
@@ -111,29 +96,11 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         fontSize: 16
     },
-    disabledInput: {
-        backgroundColor: '#eee',
-    },
-    codeButton: {
-        marginLeft: 10,
-        marginTop:-15,
-        backgroundColor:color_main,
-        paddingVertical: 10,
-        paddingHorizontal: 15,
-        borderRadius: 8
-    },
-    codeButtonText: {
-        color: '#fff',
-        fontWeight: '600',
-        backgroundColor:color_main
-    },
     resetButton: {
+        backgroundColor: color_main,
         padding: 15,
         borderRadius: 10,
         alignItems: 'center'
-    },
-    disabledButton: {
-        backgroundColor: '#aaa'
     },
     resetButtonText: {
         color: '#fff',

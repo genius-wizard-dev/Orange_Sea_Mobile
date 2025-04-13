@@ -20,16 +20,29 @@ const UpdateProfile = () => {
     const [birthday, setBirthday] = useState(null);
     const [showDatePicker, setShowDatePicker] = useState(false);
     const [avatar, setAvatar] = useState(null);
+    const [avatarFile, setAvatarFile] = useState(null); // Thêm state mới
 
 
     const dispatch = useDispatch();
     const navigation = useNavigation();
 
 
+    // Hàm chuyển URI thành Blob
+    const uriToBlob = async (uri) => {
+        try {
+            const response = await fetch(uri);
+            const blob = await response.blob();
+            return blob;
+        } catch (err) {
+            console.log('❌ Lỗi chuyển URI sang Blob:', err);
+            return null;
+        }
+    };
+
     const pickAvatar = async () => {
         const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
         if (!permissionResult.granted) {
-            alert("Permission to access media library is required!");
+            alert("Cần cấp quyền truy cập thư viện ảnh!");
             return;
         }
 
@@ -40,47 +53,84 @@ const UpdateProfile = () => {
         });
 
         if (!result.canceled) {
-            setAvatar(result.assets[0].uri); // ✅ Lưu URI ảnh
+            const uri = result.assets[0].uri;
+            setAvatar(uri);
+            
+            // Tạo blob từ URI
+            const blob = await uriToBlob(uri);
+            if (blob) {
+                // Tạo FormData object
+                const formData = new FormData();
+                formData.append('avatar', {
+                    uri: uri,
+                    type: 'image/jpeg',
+                    name: 'avatar.jpg',
+                });
+                setAvatarFile(formData);
+            }
         }
     };
-
 
     const handleSubmitUpdate = async () => {
         try {
             const token = await AsyncStorage.getItem("token");
-            const device_id = await Application.getAndroidId(); // dùng getAndroidIdAsync nếu bạn cài expo-application >= 5.x
+            const device_id = await Application.getAndroidId();
 
             const customHeaders = {
-                "x-device-id": device_id
+                "x-device-id": device_id,
+                'Content-Type': 'multipart/form-data',
             };
-          
 
-                const payload = {
-                    name,
-                    bio,
-                    phone,
-                    birthday: birthday ? new Date(birthday).toISOString().split('T')[0] : null, // -> YYYY-MM-DD
-                    avatar: "https://res.cloudinary.com/dubwmognz/image/upload/v1744444587/profile-avatars/profile_67f748a29aa2a56a8cbdcde4.jpg"
-                  };
-                  
+            // Tạo payload với FormData
+            const formData = new FormData();
+            formData.append('name', name);
+            formData.append('bio', bio);
+            formData.append('phone', phone);
+            if (birthday) {
+                formData.append('birthday', new Date(birthday).toISOString().split('T')[0]);
+            }
+            
+            if (avatarFile) {
+                formData.append('avatar', avatarFile.get('avatar'));
+            }
 
-            console.log("up dapte")
-            console.log(payload)
-            console.log(token)
-            console.log(customHeaders)
-
+            // Log chi tiết body
+            console.log('📱 Phone:', phone);
+            console.log('📝 Form Data Details:');
+            for (let [key, value] of formData.entries()) {
+                console.log(`${key}:`, value);
+            }
+            
+            // Log tổng quan
+            console.log('📦 Complete Body:', {
+                name,
+                bio,
+                phone,
+                birthday: birthday ? new Date(birthday).toISOString().split('T')[0] : null,
+                avatar: avatarFile ? 'Has Avatar File' : 'No Avatar'
+            });
+            console.log('🔑 Token:', token);
+            console.log('📋 Headers:', customHeaders);
+            
+            // Kiểm tra chi tiết của file avatar nếu có
+            if (avatarFile) {
+                const avatarDetails = avatarFile.get('avatar');
+                console.log('🖼️ Avatar File Details:', {
+                    uri: avatarDetails.uri,
+                    type: avatarDetails.type,
+                    name: avatarDetails.name
+                });
+            }
 
             const res = await dispatch(putMe({
-                data: payload,
+                data: formData,
                 token,
                 customHeaders
             })).unwrap();
 
             console.log("✅ Đã cập nhật:", res);
-
-            if (res.status==="success") {
+            if (res.status === "success") {
                 navigation.navigate("Chats");
-                
             }
         } catch (err) {
             console.log("❌ Lỗi cập nhật thông tin người dùng:", err);
@@ -89,7 +139,6 @@ const UpdateProfile = () => {
 
     return (
         <ScrollView contentContainerStyle={styles.container}>
-            <Text style={styles.title}>Cập nhật hồ sơ</Text>
 
             <Text style={styles.label}>Avatar</Text>
             <TouchableOpacity style={styles.avatarPicker} onPress={pickAvatar}>
