@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const authServiceInstance = axios.create({
-    baseURL: "http://192.168.243.154:8000", 
+    baseURL: "http://192.168.243.8:8000", 
     timeout: 10000, // Add timeout
 });
 
